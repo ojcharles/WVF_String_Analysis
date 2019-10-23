@@ -1,0 +1,14 @@
+run("Bio-Formats", "open=@[01]@ color_mode=Grayscale view=Hyperstack stack_order=XYCZT");
+run("Z Project...", "projection=[Max Intensity]");
+run("Split Channels");
+selectImage([channel]);
+run("Rotate 90 Degrees Left");
+saveAs("Tiff", [02]);
+run("16-bit");
+run("Convolve...", "text1=[-1 -1 -1 -1 -1\n-1 -1 -1 -1 -1\n-1 -1 24 -1 -1\n-1 -1 -1 -1 -1\n-1 -1 -1 -1 -1\n] normalize");
+run("Convolve...", "text1=[-1 -1 -1 -1 -1\n-1 -1 -1 -1 -1\n-1 -1 24 -1 -1\n-1 -1 -1 -1 -1\n-1 -1 -1 -1 -1\n] normalize");
+setOption("BlackBackground", true);
+run("Make Binary");
+saveAs("Tiff", [03]);
+run("Close All");
+run("Quit");
